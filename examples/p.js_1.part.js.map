@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "engine": "v2",
+  "file": "p.js_1.part.js",
+  "sourceRoot": "",
+  "sources": ["org-dartlang-sdk:///sdk/lib/_internal/js_runtime/lib/js_primitives.dart","p.dart","org-dartlang-sdk:///sdk/lib/_internal/js_runtime/lib/internal_patch.dart","org-dartlang-sdk:///sdk/lib/core/print.dart"],
+  "names": ["printString","hello","print","printToConsole"],
+  "mappings": "A;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;iBAmBKA;MACHA;;QAGEA,MAyBJA;;MArBEA;;QAGEA,MAkBJA;;MAdEA;QACEA,MAaJA;MATEA;;QAEEA,MAOJA;;;K;;;WChDKC;MCqCHC;IDnCFD,C",
+  "x_org_dartlang_dart2js": {
+    "minified_names": {
+      "global": "",
+      "instance": ""
+    },
+    "frames": "2iDCCEEAESEC4B,A;"
+  }
+}

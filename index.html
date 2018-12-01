@@ -1,0 +1,505 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/wrike.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+    <style>
+
+    </style>
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section id="start">
+          <h2>
+            Алиса в стране JS
+          </h2>
+        </section>
+        <section>
+          <h2>
+            Как Dart живёт в браузере
+          </h2>
+        </section>
+        <section>
+          <p>
+            Про javascript
+          </p>
+          <img height="90%"  src="img/hat.svg" alt="">
+        </section>
+        <section>
+          <pre><code class="javascript" data-noescape data-trim>
+          [] + [] // ""
+          </code></pre>
+          <pre class="fragment"><code class="javascript" data-noescape data-trim>
+          [] + {} // '[object Object]'
+          </code></pre>
+          <pre class="fragment"><code class="javascript" data-noescape data-trim>
+          {} + [] // 0
+          </code></pre>
+          <pre class="fragment"><code class="javascript" data-noescape data-trim>
+          {} + {} // NaN
+          </code></pre>
+        </section>
+        <section>
+          Это выдуманная проблема
+        </section>
+        <section>
+          <img src="img/ts.png" alt="">
+        </section>
+        <section>
+          <img src="img/flow.png" alt="">
+        </section>
+        <section>
+          <img src="img/eslint.png" alt="">
+        </section>
+        <section>
+          <p>
+            Есть и реальные проблемы
+          </p>
+          <p class="fragment">Вас не спасет Typescript</p>
+        </section>
+        <section>
+          <p>
+            Запрос на  сервер
+          </p>
+          <pre><code data-trim>
+var xhr = new XMLHttpRequest();
+xhr.open('GET', '...', true);
+var result = xhr.send();
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim>
+const promiseResult = fetch('...')
+  .then(resp => resp.json())
+          </code></pre>
+        </section>
+        <section>
+          <p>
+            &mdash; Все используют Promise и fetch!
+          </p>
+          <p class="fragment">
+           &mdash; Но это не точно!
+          </p>
+        </section>
+        <section>
+          <pre><code data-trim data-noescape>
+          const result = document.getElementsByClassName('test');
+          <span class="fragment">// HTMLCollection</span>
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim data-noescape>
+          const result = document.querySelectorAll('.test');
+          <span class="fragment">// NodeList</span>
+          </code></pre>
+          <p class="fragment">Почему бы не вернуть Array!?</p>
+        </section>
+        <section>
+          <p>Array &mdash; тоже странная штука</p>
+          <pre class="fragment"><code data-trim>
+          Array.prototype[1] = "ha";
+          var arr = [0, /* Дырка */, 1]
+          arr[1]  // => "ha"
+          </code></pre>
+          <p class="fragment">Но у него есть map, filter...</p>
+        </section>
+        <section>
+          <img src="img/hole.png" alt="">
+        </section>
+        <section>
+          Dart &mdash; попытка с нуля переосмыслить JS
+          <img src="img/Cheshire_Cat_Tenniel.jpeg" alt="">
+        </section>
+        <section>
+          <p>Нам нужен план действий</p>
+          <img src="img/Teaparty.svg" alt="">
+        </section>
+        <section>
+          <h2>План действий</h2>
+          <ul>
+            <li class="fragment">Оставить все лучшее</li>
+            <li class="fragment">Убрать нелогичности</li>
+            <li class="fragment">Заново реализовать SDK</li>
+            <li class="fragment">Добавить новые фичи и новый сахар</li>
+            <li class="fragment">Придумать план побега</li>
+          </ul>
+        </section>
+        <section>
+          <p>Работа закипела</p>
+          <ul>
+            <li class="fragment">Все есть Object, noSuchMethod</li>
+            <li class="fragment">Array → List</li>
+            <li class="fragment">Promise → Future</li>
+            <li class="fragment">List имплементирует Iterable как и Map</li>
+            <li class="fragment">Появились Zone и Isolate</li>
+            <li class="fragment">Stream <span class="fragment">Stream.toList() => Future&lt;List&gt;</span></li>
+          </ul>
+        </section>
+        <section data-transition="none">
+          <h2>План побега:</h2>
+          V8 → DartVM
+        </section>
+        <section data-transition="none">
+          <h2>План побега:</h2>
+          <strike>
+            V8 → DartVM
+          </strike>
+        </section>
+        <section data-transition="slide none">
+          <p>
+            Новые браузеры: Dart →  DartVM
+          </p>
+          <p class="fragment">
+           Старые браузеры:  Dart → JS → V8
+          </p>
+        </section>
+        <section data-transition="none slide">
+          <p>
+            <strike>
+              Новые браузеры: Dart →  DartVM
+            </strike>
+          </p>
+          <p>
+           Старые браузеры:  Dart → JS → V8
+          </p>
+        </section>
+        <section>
+          <p>
+            Dart → JS → V8
+          </p>
+        </section>
+        <section>
+          <p>
+            Dart ≠ JS
+          </p>
+        </section>
+        <section>
+          <p>Typescript → Аналогичный JS</p>
+          <p class="fragment">Dart → Другой JS</p>
+        </section>
+        <section>
+          Перехватчики
+        </section>
+        <section>
+          <p>
+            Dart
+          </p>
+          <pre><code class="dart" data-trim>newAngle = steeringWheel.turn(angle)</code></pre>
+          <div class="fragment">
+          <p>JS</p>
+          <pre><code class="javascript" data-trim>
+interceptor = getInterceptor(steeringWheel);
+newAngle = interceptor.turn$1(steeringWheel, angle);
+          </code></pre>
+          </div>
+        </section >
+        <section data-transition="slide none">
+          <pre><code data-trim class="javascript">
+interceptor = getInterceptor(sreeringWheel);
+newAngle = interceptor.turn$1(steeringWheel, angle);
+          </code></pre>
+        </section>
+        <section data-transition="none">
+          <pre><code data-trim>
+interceptor = SteeringWheelClass_methods; // constant
+newAngle = interceptor.turn$1(steeringWheel, angle);
+          </code></pre>
+        </section>
+        <section data-transition="none">
+          <pre><code class="js" data-trim>
+newAngle = SteeringWheelClass_methods.turn(
+  steeringWheel, 
+  angle,
+);
+          </code></pre>
+        </section>
+        <section>
+          <pre><code class="dart">int newAngle = car.steeringWheel.turn(angle)</code></pre>
+        </section>
+        <section data-transition="slide none">
+          <pre><code data-trim>
+          tempSteeringWheel = car.get$steeringWheel();
+          interceptor = getInterceptor(tempSteeringWheel);
+          newAngle = interceptor.turn$1(tempSteeringWheel, angle);
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim>
+tempSteeringWheel = car.get$steeringWheel();
+interceptor = SteeringWheelClass_methods_methods;
+newAngle = interceptor.turn$1(tempSteeringWheel, angle);
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim>
+          newAngle = SteeringWheelClass_methods.turn$1(
+            car.get$steeringWheel(), 
+            angle);
+          </code></pre>
+        </section>
+        <section>
+          <p>
+            JS
+          </p>
+          <pre><code data-trim>
+          const newAngle = new Car()
+            .steeringWheel
+            .turn(10)
+          </code></pre>
+        </section>
+        <section>
+          <p>
+            Некоторые перехватчики можно выкинуть
+            на этапе компиляции
+          </p>
+        </section>
+        <section>
+          <pre><code class="dart" data-trim>
+          class Car {}
+          class FastCar {}
+          class BMW implements Car, FastCar
+          </code></pre>
+        </section>
+        <section>
+          Проверки в  Runtime
+          <pre><code data-trim>
+          BMW() is Car // => true
+          BMW() is FastCar // => true
+          </code></pre>
+        </section>
+        <section>
+          <img src="img/hole.png" alt="">
+        </section>
+        <section>
+          <p>
+            Документация
+          </p>
+          <a href="https://github.com/dart-lang/sdk/blob/master/pkg/compiler/doc/interceptors.md">github.com/dart-lang/sdk/blob/master/pkg/compiler/doc/interceptors.md</a>
+        </section>
+        <section>
+          <p>
+            За все нужно платить
+          </p>
+          <img src="img/old.jpg" style="max-height: 30%; max-width: none; height: 500px"  alt="">
+        </section>
+        <section>
+          <p>
+            Время старта
+          </p>
+          <ul>
+            <li class="fragment">Full js emitter 
+              <small class="fragment">по-умолчанию</small></li>
+            <li class="fragment">
+              Startup js emitter
+              <small class="fragment">--fast-strartup</small>
+            </li>
+          </ul>
+        </section>
+        <section>
+          Проверки типов в рантайм
+        </section>
+        <section>
+          <p>
+          Dart
+          </p>
+          <pre><code class="dart" data-trim>
+void main(List&lt;String&gt; args){}
+          </code></pre>
+          <div class="fragment">
+          <p>JS</p>
+          <pre><code class="javascript" data-trim>
+    main: function(args) {
+      H.assertSubtype(args, "$isList", [P.String], "$asList");
+    }
+          </code></pre>
+          </div>
+        </section>
+        <section>
+          --omit-implicit-checks
+        </section>
+        <section>
+          Размер выходного файла
+        </section>
+        <section>
+          <pre><code data-trim>
+import 'dart:async';
+import 'dart:html';
+
+Future main() async {
+  document
+    .body
+    .onClick.listen((e) => print('clicked'));
+}
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim class="bash">
+dart2js  #  =>  444k
+          </code></pre>
+          <pre class="fragment"><code data-trim class="bash">
+dart2js \
+  --minify \
+  --trust-primitives \
+  --omit-implicit-checks # => 52k
+          </code></pre>
+        </section>
+        <section>
+          <p>Angular</p>
+          <ul>
+            <li class="fragment">
+              Dart: 164k
+            </li>
+            <li class="fragment">
+              Typescript: 174k + 1.4k + 37.5k
+            </li>
+          </ul>
+        </section>
+        <section>
+          Как можно сжать код в 8 раз
+        </section>
+        <section>
+          <pre><code data-trim class="dart">
+class Car {
+  final SteeringWheel steeringWheel;
+  Car(this.steeringWheel);
+}
+
+class SteeringWheel {
+  void turn() => print('turn');
+}
+
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim>
+void main() {
+  Car(new SteeringWheel()).steeringWheel.turn();
+}
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim class="javascript">
+          function(){H.c("turn")}
+          </code></pre>
+        </section>
+        <section>
+          SSA (static single assignment) form
+        </section>
+        <section>
+          SSA was proposed by Barry K. Rosen, Mark N. Wegman, and F. Kenneth Zadeck in 1988
+        </section>
+        <section>
+<ul>
+  <li>свёртка констант</li>
+  <li>удаление мёртвого кода</li>
+  <li>нумерация глобальных значений</li>
+  <li>частичное устранение избыточности</li>
+  <li>снижение стоимости операций</li>
+  <li>распределение регистров</li>
+</ul>
+        </section>
+        <section>
+          <p>Свертка констант</p>
+        </section>
+        <section data-transition="slide none">
+          <pre><code data-trim class="dart">
+int x = 14;
+int y = 7 - x / 2;
+return y * (28 / x + 2);
+          </code></pre>
+        </section>
+        <section data-transition="none">
+          <pre><code data-trim class="dart">
+int x = 14;
+int y = 7 - 14 / 2;
+return y * (28 / 14 + 2);
+          </code></pre>
+        </section>
+        <section data-transition="none">
+          <pre><code data-trim class="dart">
+int x = 14;
+int y = 0;
+return 0;
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim class="dart">
+void main() {
+  Car(new SteeringWheel()).steeringWheel.turn(4);
+}
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim class="javascript">
+function(){H.c("turn 4")}
+          </code></pre>
+        </section>
+        <section>
+          Hooks
+        </section>
+        <section style="font-size: .6em">
+          <ul>
+            <li>dartPrint(message):</li>
+            <li class="fragment">dartMainRunner(main, args):</li>
+            <li class="fragment">dartDeferredLibraryLoader(uri, successCallback, errorCallback):</li>
+            <li class="fragment">defaultPackagesBase:</li>
+          </ul>
+        </section>
+        <section>
+          <p>Взаимодействие с Javascript</p>
+        </section>
+        <section>
+          Спасибо за внимание! 
+        </section>
+        <section>
+          <p>
+            Вопросы
+          </p>
+          <p>twitter: <a href="https://twitter.com/zolotyh">@zolotyh</a></p>
+        </section>
+      </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+      // More info about config & dependencies:
+      // - https://github.com/hakimel/reveal.js#configuration
+      // - https://github.com/hakimel/reveal.js#dependencies
+      Reveal.initialize({
+        transition: 'fade',
+        controls: true,
+        width: 1440,
+        height: 900,
+        progress: true,
+        slideNumber: true,
+        history: true,
+        dependencies: [
+          { src: 'plugin/markdown/marked.js' },
+          { src: 'plugin/markdown/markdown.js' },
+          { src: 'plugin/notes/notes.js', async: true },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+      });
+    </script>
+  </body>
+</html>
