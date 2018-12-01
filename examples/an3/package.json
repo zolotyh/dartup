@@ -1,0 +1,21 @@
+{
+  "name": "an3",
+  "version": "1.0.0",
+  "description": "A library for Dart developers.",
+  "main": "out.js",
+  "directories": {
+    "example": "example",
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/d3": "^5.0.1",
+    "@types/jquery": "^3.3.22"
+  }
+}

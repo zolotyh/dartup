@@ -154,6 +154,24 @@ const promiseResult = fetch('...')
             <li class="fragment">Stream <span class="fragment">Stream.toList() => Future&lt;List&gt;</span></li>
           </ul>
         </section>
+        <section>
+          <pre><code>
+function after() {
+  console.log('after');
+}
+
+setTimeout(after, 1000);
+          </code></pre>
+        </section>
+        <section>
+          <p>Стало можно так</p>
+          <pre><code data-trim  class="dart">
+Future main() async {
+  await Future.delayed(new Duration(seconds: 1));
+  print('after');
+}
+          </code></pre>
+        </section>
         <section data-transition="none">
           <h2>План побега:</h2>
           V8 → DartVM
@@ -392,7 +410,7 @@ class SteeringWheel {
         <section>
           <pre><code data-trim>
 void main() {
-  Car(new SteeringWheel()).steeringWheel.turn();
+  Car(SteeringWheel()).steeringWheel.turn();
 }
           </code></pre>
         </section>
@@ -418,42 +436,6 @@ void main() {
 </ul>
         </section>
         <section>
-          <p>Свертка констант</p>
-        </section>
-        <section data-transition="slide none">
-          <pre><code data-trim class="dart">
-int x = 14;
-int y = 7 - x / 2;
-return y * (28 / x + 2);
-          </code></pre>
-        </section>
-        <section data-transition="none">
-          <pre><code data-trim class="dart">
-int x = 14;
-int y = 7 - 14 / 2;
-return y * (28 / 14 + 2);
-          </code></pre>
-        </section>
-        <section data-transition="none">
-          <pre><code data-trim class="dart">
-int x = 14;
-int y = 0;
-return 0;
-          </code></pre>
-        </section>
-        <section>
-          <pre><code data-trim class="dart">
-void main() {
-  Car(new SteeringWheel()).steeringWheel.turn(4);
-}
-          </code></pre>
-        </section>
-        <section>
-          <pre><code data-trim class="javascript">
-function(){H.c("turn 4")}
-          </code></pre>
-        </section>
-        <section>
           Hooks
         </section>
         <section style="font-size: .6em">
@@ -465,12 +447,105 @@ function(){H.c("turn 4")}
           </ul>
         </section>
         <section>
+          <pre><code>
+var dartMainRunner = (main, args) 
+  => setTimeout(main, 3000);
+          </code></pre>
+        </section>
+        <section>
           <p>Взаимодействие с Javascript</p>
+        </section>
+        <section>
+          <pre><code style="font-size: 3vh" data-trim>
+@JS()
+library main;
+
+import 'package:js/js.dart';
+
+@JS('console.log')
+external void log(dynamic str);
+
+void main() {
+  log('Hello world!');
+}
+          </code></pre>
+        </section>
+        <section>
+          <pre><code data-trim>
+function(){self.console.log("Hello world!")}
+          </code></pre>
+        </section>
+        <section>
+          <p>
+          Что делает @JS?
+          </p>
+        </section>
+        <section>
+          <p>Typescript vs Dart</p>
+          <pre>
+            <code data-trim class="dart">
+//allowed as a super-type.
+@sealed
+class Simple {}
+            </code>
+          </pre>
+        </section>
+        <section>
+          Typescript
+          <pre><code data-trim class="typescript">
+function sealed(constructor: Function) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
+          </code></pre>
+        </section>
+        <section>
+          <p>
+            Аннотации
+          </p>
+          <ul>
+            <li class="fragment">@sealed</li>
+            <li class="fragment">@alwaysThrows</li>
+            <li class="fragment">@covariant</li>
+            <li class="fragment">@factory</li>
+            <li class="fragment">@literal</li>
+            <li class="fragment">@protected</li>
+            <li class="fragment">@required</li>
+            <li class="fragment">@visibleForTesting</li>
+            <li class="fragment">@immutable</li>
+          </ul>
+        </section>
+        <section>
+          <p>
+            Больше аннотаций
+          </p>
+        </section>
+        <section>
+          <p>
+            dart2js аннотации
+          </p>
+          <ul>
+            <li class="fragment">@noInline</li>
+            <li class="fragment">@tryInline</li>
+          </ul>
+        </section>
+        <section>
+          Typescript → Dart
+          <p>
+          <a href="https://github.com/dart-lang/js_facade_gen.git">github.com/dart-lang/js_facade_gen.git</a>
+          </p>
+        </section>
+        <section>
+          dart2js хочет знать все
+        </section>
+        <section>
+          dartdevc
         </section>
         <section>
           Спасибо за внимание! 
         </section>
         <section>
+          <p>Алексей Золотых</p>
           <p>
             Вопросы
           </p>
