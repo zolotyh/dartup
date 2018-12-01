@@ -1,1 +1,1 @@
-[https://zolotyh.github.io/lifehacks/](https://zolotyh.github.io/lifehacks/)
+[https://zolotyh.github.io/dartup](https://zolotyh.github.io/dartup)
